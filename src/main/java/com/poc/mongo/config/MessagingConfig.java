@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MessagingConfig {
-
+/*
     @Bean
     public Queue studentQueue(){
         return new Queue(Constants.STUDENT_QUEUE);
@@ -20,23 +20,31 @@ public class MessagingConfig {
     @Bean
     public Queue adminQueue(){
         return new Queue(Constants.ADMIN_QUEUE);
-    }
-
-    @Bean
+    }*/
+ /*   @Bean
     public TopicExchange topicExchange(){
         return new TopicExchange(Constants.TOPIC_EXCHANGE);
     }
-
-    @Bean
+*/
+   /* @Bean
     public Binding studentBinding(Queue studentQueue, TopicExchange topicExchange){
         return BindingBuilder.bind(studentQueue).to(topicExchange).with(Constants.STUDENT_ROUTING_KEY);
+    }*/
+
+    /*
+    Dynamic in loop
+     */
+    public  Binding configBinding(String queueName, String routingKey){
+        TopicExchange topicExchange = new TopicExchange(Constants.TOPIC_EXCHANGE);
+        Queue queue = new Queue(queueName);
+        return BindingBuilder.bind(queue).to(topicExchange).with(routingKey);
     }
 
-    @Bean
+   /* @Bean
     public Binding adminBinding(Queue adminQueue, TopicExchange topicExchange){
         return BindingBuilder.bind(adminQueue).to(topicExchange).with(Constants.ADMIN_ROUTING_KEY);
     }
-
+*/
     @Bean
     public MessageConverter converter() {
         return new Jackson2JsonMessageConverter();
